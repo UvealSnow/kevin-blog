@@ -4,6 +4,7 @@ date: 2020-03-13
 tags: ["Research", "Emotional tracking", "Machine learning"]
 canonical_url: false
 featured: true
+published: true
 description: "A new disruptive technology is around the corner... How will your business use it to rize above the competition?"
 ---
 
