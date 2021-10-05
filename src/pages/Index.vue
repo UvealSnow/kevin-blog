@@ -2,38 +2,26 @@
   <Layout>
     <h1 class="font-display text-4xl pb-4">Home</h1>
 
-    <PostCard v-if="$page.allPost.edges.length > 0" v-for="(edge, index) in $page.allPost.edges" :post="edge.node" :key="index" />
+    <!-- <PostCard v-if="$page.allPost.edges.length > 0" v-for="(edge, index) in $page.allPost.edges" :post="edge.node" :key="index" />
 
-    <NoPosts v-else />
+    <NoPosts v-else /> -->
 
-    <Pager class="flex mt-8" :info="$page.allPost.pageInfo"/>
+    <!-- <Pager class="flex mt-8" :info="$page.allPost.pageInfo"/> -->
   </Layout>
 </template>
 
 <page-query>
-  query ($page: Int) {
-    allPost(filter: { featured: { eq: true } } perPage: 4 page: $page) @paginate {
-      pageInfo {
-        totalPages
-        currentPage
-      }
-      edges {
-        node {
-          id
-          title
-          date (format: "D. MMMM YYYY")
-          timeToRead
-          description
-          path
-          tags {
-            id
-            title
-            path
-          }
-        }
+{
+  gcms {
+    posts(orderBy: date_DESC) {
+      title
+      slug
+      coverImage {
+        url
       }
     }
   }
+}
 </page-query>
 
 <script>

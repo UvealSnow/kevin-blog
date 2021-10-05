@@ -5,7 +5,7 @@
       <x-icon v-else size="2x" class="text-white" @click="closeNavbar" />
     </div>
 
-    <div class="navbar shadow flex w-64 h-screen bg-orange-500 p-8 flex-col items-center content-center text-center font-display"
+    <div class="navbar shadow flex w-64 h-screen bg-yellow-600 p-8 flex-col items-center content-center text-center font-display"
       :class="{ 'active': active }">
       <div class="h-24 w-24 overflow-hidden bg-white rounded-full">
         <g-image src="~/avatar.jpg" />

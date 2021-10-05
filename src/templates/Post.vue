@@ -35,18 +35,16 @@
 </script>
 
 <page-query>
-  query Post ($id: ID!) {
-    post: post (id: $id) {
-      title
-      path
-      date (format: "D. MMMM YYYY")
-      timeToRead
-      description
-      content
-      tags {
-        id
+  query getPost ($slug: String) {
+    gcms {
+      post(where: { slug: $slug }) {
+        slug
         title
-        path
+        date
+        excerpt
+        coverImage {
+          url
+        }
       }
     }
   }

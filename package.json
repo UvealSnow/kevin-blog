@@ -9,11 +9,12 @@
   "dependencies": {
     "gridsome": "^0.7.0",
     "moment": "^2.29.1",
-    "vee-validate": "^3.4.12"
+    "vee-validate": "^3.4.12",
+    "vue-feather-icons": "^5.1.0"
   },
   "devDependencies": {
-    "@gridsome/source-graphql": "^0.1.0",
     "@fullhuman/postcss-purgecss": "^4.0.3",
+    "@gridsome/source-graphql": "^0.1.0",
     "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat",
     "autoprefixer": "^9",
     "dotenv": "^10.0.0",
