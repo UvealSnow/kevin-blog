@@ -1,47 +1,38 @@
-const tailwind = require('tailwindcss')
-const purgecss = require('@fullhuman/postcss-purgecss')
+const tailwind = require('tailwindcss');
 
 const postcssPlugins = [
   tailwind(),
-]
-
-if (process.env.NODE_ENV === 'production') postcssPlugins.push(purgecss())
+];
 
 module.exports = {
-  siteName: 'Kevin Avila',
-  siteUrl: "https://alligator.io",
-  siteDescription: "Software developer and general geek",
-  templates: {
-    Post: '/blog/:title',
-    Tag: '/tag/:id'
+  siteName: 'Telebyte S.A. de C.V.',
+  siteDescription: 'Con más de 30 años de experiencia, Telebyte S.A. de C.V. ofrece el mejor servicio disponible en la región.',
+
+  metadata: {
+    //
   },
+
   plugins: [
     {
-      // Create posts from markdown files
-      use: '@gridsome/source-filesystem',
+      use: "gridsome-plugin-tailwindcss",
+      // these options are optional, as they are copies of the default values...
       options: {
-        typeName: 'Post',
-        path: 'content/posts/*.md',
-        refs: {
-          // Creates a GraphQL collection from 'tags' in front-matter and adds a reference.
-          tags: {
-            typeName: 'Tag',
-            create: true
-          }
-        }
+        tailwindConfig: './tailwind.config.js',
+        presetEnvConfig: {},
+        shouldImport: false,
+        shouldTimeTravel: false
       }
-    }
+    },
+    {
+      use: '@gridsome/source-graphql',
+      options: {
+        url: process.env.GRAPH_CMS_URL,
+        fieldName: 'gcms',
+        typeName: 'gcmsTypes',
+      },
+    },
   ],
-  transformers: {
-    //Add markdown support to all file-system sources
-    remark: {
-      externalLinksTarget: '_blank',
-      externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
-      plugins: [
-        '@gridsome/remark-prismjs'
-      ]
-    }
-  },
+
   css: {
     loaderOptions: {
       postcss: {
@@ -49,4 +40,12 @@ module.exports = {
       },
     },
   },
+
+  chainWebpack: config => {
+    const svgRule = config.module.rule('svg');
+    svgRule.uses.clear();
+    svgRule
+      .use('vue-svg-loader')
+      .loader('vue-svg-loader');
+  }
 }
