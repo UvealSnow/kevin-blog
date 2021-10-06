@@ -2,9 +2,11 @@
   <Layout>
     <h1 class="font-display text-4xl pb-4">Home</h1>
 
-    <!-- <PostCard v-if="$page.allPost.edges.length > 0" v-for="(edge, index) in $page.allPost.edges" :post="edge.node" :key="index" />
+    <template v-if="$page.gcms.posts.length > 0">
+      <PostCard v-for="(post, index) in $page.gcms.posts" :post="post" :key="index" />
+    </template>
 
-    <NoPosts v-else /> -->
+    <NoPosts v-else />
 
     <!-- <Pager class="flex mt-8" :info="$page.allPost.pageInfo"/> -->
   </Layout>
@@ -16,6 +18,13 @@
     posts(orderBy: date_DESC) {
       title
       slug
+      excerpt
+      author {
+        name
+        picture {
+          url
+        }
+      }
       coverImage {
         url
       }

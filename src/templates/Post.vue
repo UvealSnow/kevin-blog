@@ -1,12 +1,12 @@
 <template>
   <Layout>
-    <h1 class="font-display text-4xl pb-4" v-text="$page.post.title"></h1>
+    <!-- <h1 class="font-display text-4xl pb-4" v-text="$page.post.title"></h1>
 
-    <PostMeta :date="$page.post.date" :ttr="$page.post.timeToRead" />
+    <PostMeta :published-at="$page.post.publishedAt" :ttr="15" />
 
     <PostTags :tags="$page.post.tags" />
 
-    <div class="py-8 font-body" v-html="$page.post.content"></div>
+    <div class="py-8 font-body" v-html="$page.post.content"></div> -->
   </Layout>
 </template>
 
@@ -22,32 +22,32 @@
 
     metaInfo () {
       return {
-        title: this.$page.post.title,
+        title: this.$page.gcms.post.title,
         meta: [
           {
             name: 'description',
-            content: this.$page.post.description
+            content: this.$page.gcms.excerpt,
           }
-        ]
-      }
-    }
+        ],
+      };
+    },
   }
 </script>
 
 <page-query>
-  query getPost ($slug: String) {
-    gcms {
-      post(where: { slug: $slug }) {
-        slug
-        title
-        date
-        excerpt
-        coverImage {
-          url
-        }
+query getPost($slug: String) {
+  gcms {
+    post(where: { slug: $slug }) {
+      slug
+      title
+      publishedAt
+      excerpt
+      coverImage {
+        url
       }
     }
   }
+}
 </page-query>
 
 <style type="text/css">
