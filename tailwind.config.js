@@ -7,5 +7,13 @@ module.exports = {
     extend: {}
   },
   variants: {},
-  plugins: []
+  plugins: [],
+  purge: [
+    './src/**/*.vue',
+    './src/**/*.js',
+    './src/**/*.jsx',
+    './src/**/*.html',
+    './src/**/*.pug',
+    './src/**/*.md',
+  ],
 }
