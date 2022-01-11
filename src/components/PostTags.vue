@@ -1,6 +1,6 @@
 <template>
-  <div class="flex pt-3">
-    <g-link class="font-body bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold py-1 px-2 mr-2 rounded shadow"
+  <div class="post-tags">
+    <g-link class="post-tags__tag"
       v-for="(tag, index) in tags"
       :key="index"
       :to="tag.path">#{{ tag.title }}</g-link>
@@ -14,3 +14,13 @@
     }
   }
 </script>
+
+<style lang="scss">
+.post-tags {
+  @apply flex mt-2 mb-4;
+
+  &__tag {
+    @apply font-body bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-bold py-1 px-2 mr-2 rounded shadow;
+  }
+}
+</style>

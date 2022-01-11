@@ -2,10 +2,18 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ['Courier Prime'],
-      body: ['Raleway']
+      body: ['Raleway'],
     },
     extend: {}
   },
   variants: {},
-  plugins: []
+  plugins: [],
+  purge: [
+    './src/**/*.vue',
+    './src/**/*.js',
+    './src/**/*.jsx',
+    './src/**/*.html',
+    './src/**/*.pug',
+    './src/**/*.md',
+  ],
 }

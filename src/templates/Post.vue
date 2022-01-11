@@ -1,12 +1,16 @@
 <template>
-  <Layout>
-    <h1 class="font-display text-4xl pb-4" v-text="$page.post.title"></h1>
+  <Layout class="post">
+    <h1 class="post__title" v-text="$page.gcms.post.title"></h1>
 
-    <PostMeta :date="$page.post.date" :ttr="$page.post.timeToRead" />
+    <PostMeta
+      class="post__meta"
+      :published-at="$page.gcms.post.publishedAt"
+      :ttr="15"
+    />
 
-    <PostTags :tags="$page.post.tags" />
+    <PostTags class="post__tags" :tags="[{ title: 'Loquilla', path: ''}]" />
 
-    <div class="py-8 font-body" v-html="$page.post.content"></div>
+    <div class="post__content" v-html="$page.gcms.post.content.html" />
   </Layout>
 </template>
 
@@ -22,57 +26,99 @@
 
     metaInfo () {
       return {
-        title: this.$page.post.title,
+        title: this.$page.gcms.post.title,
         meta: [
           {
             name: 'description',
-            content: this.$page.post.description
+            content: this.$page.gcms.post.excerpt,
           }
-        ]
-      }
-    }
+        ],
+      };
+    },
   }
 </script>
 
 <page-query>
-  query Post ($id: ID!) {
-    post: post (id: $id) {
+query getPost($slug: String) {
+  gcms {
+    post(where: { slug: $slug }) {
+      slug
       title
-      path
-      date (format: "D. MMMM YYYY")
-      timeToRead
-      description
-      content
-      tags {
-        id
+      excerpt
+      publishedAt
+      seo {
         title
-        path
+        description
+        image {
+          id
+          url
+        }
+      }
+      content {
+        html
+      }
+      coverImage {
+        url
+      }
+      author {
+        id
+        name
+        posts(where: { NOT: { slug: $slug } }) {
+          slug
+          title
+          excerpt
+          coverImage {
+            url
+          }
+        }
       }
     }
   }
+}
 </page-query>
 
-<style type="text/css">
-  pre {
-    margin: 16px 0;
-    font-size: .7rem;
-    max-height: 300px;
-    overflow: scroll;
-    padding: 18px 36px;
-    background: #feebc8;
-    border-radius: .5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+<style lang="scss" type="text/css">
+.post {
+  &__title {
+    @apply text-4xl font-bold font-display;
   }
 
-  h4 {
-    font-weight: bold;
-    padding: 2rem 0 .5rem 0;
-    font-size: 1.25rem;
+  &__meta {
+    @apply text-sm font-display;
   }
 
-  .font-body p {
-    font-size: 1rem;
-    padding: .5rem 0;
-    line-height: 1.5rem;
+  &__content {
+    @apply overflow-hidden;
+
+    p {
+      @apply pb-2 relative;
+      z-index: -1;
+    }
+
+    pre {
+      @apply block whitespace-pre font-display text-xs;
+
+      code {
+        @apply bg-black text-white w-full block
+          p-5 my-4;
+      }
+    }
+
+    blockquote {
+      @apply bg-yellow-100
+        text-lg font-display
+        my-2 py-5 pl-6 pr-4
+        border-l-2 border-yellow-500;
+      line-height: 1.35;
+    }
+
+    ol {
+      @apply list-decimal pl-4;
+    }
+
+    ul {
+      @apply list-disc pl-4;
+    }
   }
+}
 </style>

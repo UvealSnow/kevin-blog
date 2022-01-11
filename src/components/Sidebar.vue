@@ -1,11 +1,11 @@
 <template>
-  <div class="absolute md:static top-0 w-full md:w-auto bg-orange-500">
+  <div class="absolute md:static top-0 w-full md:w-auto bg-yellow-500">
     <div class="md:hidden shadow flex justify-end px-8 py-4">
       <menu-icon v-if="!active" size="2x" class="text-white" @click="toggleNavbar" />
       <x-icon v-else size="2x" class="text-white" @click="closeNavbar" />
     </div>
 
-    <div class="navbar shadow flex w-64 h-screen bg-orange-500 p-8 flex-col items-center content-center text-center font-display"
+    <div class="navbar shadow flex w-64 h-screen bg-yellow-500 p-8 flex-col items-center content-center text-center font-display"
       :class="{ 'active': active }">
       <div class="h-24 w-24 overflow-hidden bg-white rounded-full">
         <g-image src="~/avatar.jpg" />
