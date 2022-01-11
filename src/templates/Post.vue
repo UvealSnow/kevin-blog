@@ -86,5 +86,39 @@ query getPost($slug: String) {
   &__meta {
     @apply text-sm font-display;
   }
+
+  &__content {
+    @apply overflow-hidden;
+
+    p {
+      @apply pb-2 relative;
+      z-index: -1;
+    }
+
+    pre {
+      @apply block whitespace-pre font-display text-xs;
+
+      code {
+        @apply bg-black text-white w-full block
+          p-5 my-4;
+      }
+    }
+
+    blockquote {
+      @apply bg-yellow-100
+        text-lg font-display
+        my-2 py-5 pl-6 pr-4
+        border-l-2 border-yellow-500;
+      line-height: 1.35;
+    }
+
+    ol {
+      @apply list-decimal pl-4;
+    }
+
+    ul {
+      @apply list-disc pl-4;
+    }
+  }
 }
 </style>

@@ -2,7 +2,7 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ['Courier Prime'],
-      body: ['Raleway']
+      body: ['Raleway'],
     },
     extend: {}
   },
