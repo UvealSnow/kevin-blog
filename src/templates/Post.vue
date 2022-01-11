@@ -1,12 +1,16 @@
 <template>
-  <Layout>
-    <!-- <h1 class="font-display text-4xl pb-4" v-text="$page.post.title"></h1>
+  <Layout class="post">
+    <h1 class="post__title" v-text="$page.gcms.post.title"></h1>
 
-    <PostMeta :published-at="$page.post.publishedAt" :ttr="15" />
+    <PostMeta
+      class="post__meta"
+      :published-at="$page.gcms.post.publishedAt"
+      :ttr="15"
+    />
 
-    <PostTags :tags="$page.post.tags" />
+    <PostTags class="post__tags" :tags="[{ title: 'Loquilla', path: ''}]" />
 
-    <div class="py-8 font-body" v-html="$page.post.content"></div> -->
+    <div class="post__content" v-html="$page.gcms.post.content.html" />
   </Layout>
 </template>
 
@@ -26,7 +30,7 @@
         meta: [
           {
             name: 'description',
-            content: this.$page.gcms.excerpt,
+            content: this.$page.gcms.post.excerpt,
           }
         ],
       };
@@ -40,37 +44,47 @@ query getPost($slug: String) {
     post(where: { slug: $slug }) {
       slug
       title
-      publishedAt
       excerpt
+      publishedAt
+      seo {
+        title
+        description
+        image {
+          id
+          url
+        }
+      }
+      content {
+        html
+      }
       coverImage {
         url
+      }
+      author {
+        id
+        name
+        posts(where: { NOT: { slug: $slug } }) {
+          slug
+          title
+          excerpt
+          coverImage {
+            url
+          }
+        }
       }
     }
   }
 }
 </page-query>
 
-<style type="text/css">
-  pre {
-    margin: 16px 0;
-    font-size: .7rem;
-    max-height: 300px;
-    overflow: scroll;
-    padding: 18px 36px;
-    background: #feebc8;
-    border-radius: .5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+<style lang="scss" type="text/css">
+.post {
+  &__title {
+    @apply text-4xl font-bold font-display;
   }
 
-  h4 {
-    font-weight: bold;
-    padding: 2rem 0 .5rem 0;
-    font-size: 1.25rem;
+  &__meta {
+    @apply text-sm font-display;
   }
-
-  .font-body p {
-    font-size: 1rem;
-    padding: .5rem 0;
-    line-height: 1.5rem;
-  }
+}
 </style>

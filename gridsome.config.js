@@ -5,7 +5,7 @@ const postcssPlugins = [
 ];
 
 module.exports = {
-  siteName: 'Telebyte S.A. de C.V.',
+  siteName: 'Kevin Avila',
   siteDescription: 'Con más de 30 años de experiencia, Telebyte S.A. de C.V. ofrece el mejor servicio disponible en la región.',
 
   metadata: {

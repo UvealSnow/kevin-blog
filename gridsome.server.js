@@ -14,14 +14,14 @@ module.exports = function (api) {
     const { data } = await graphql(`
       {
         gcms {
-          pages {
+          posts {
             slug
           }
         }
       }
     `);
 
-    data.gcms.pages.forEach((node) => {
+    data.gcms.posts.forEach((node) => {
       createPage({
         path: `/posts/${node.slug}`,
         component: './src/templates/Post.vue',

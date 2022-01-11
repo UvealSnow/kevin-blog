@@ -1,5 +1,9 @@
 <template>
-  <p class="font-body text-xs pt-2">Posted {{ publishedAt }}. <span class="font-bold">{{ ttr }} min read.</span></p>
+  <p class="font-body text-xs pt-2">
+    <span class="font-bold">Posted on</span> {{ publishedAt }}.
+    <br>
+    Approx <span class="font-bold">{{ ttr }} min</span> read.
+  </p>
 </template>
 
 <script type="text/javascript">
