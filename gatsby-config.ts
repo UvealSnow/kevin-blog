@@ -11,6 +11,21 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     'gatsby-plugin-postcss',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "images",
+        "path": "./src/images/"
+      },
+      __key: "images"
+    },
+    {
+      resolve: 'gatsby-plugin-svgr',
+      options: {
+        svgo: false,
+        ref: true,
+      }
+    }
   ],
 }
 
