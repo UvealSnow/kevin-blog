@@ -1,23 +1,29 @@
 {
-  "name": "kevin-blog",
+  "name": "blog",
+  "version": "0.1.0",
   "private": true,
+  "description": "blog",
+  "author": "Kevin Avila",
+  "keywords": [
+    "gatsby"
+  ],
   "scripts": {
-    "build": "gridsome build",
-    "develop": "gridsome develop",
-    "explore": "gridsome explore"
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@gridsome/remark-prismjs": "^0.3.0",
-    "gridsome": "^0.7.0",
-    "lodash": "^4.17.15",
-    "tailwindcss": "^1.1.4"
+    "gatsby": "^5.14.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^1.3.0",
-    "@gridsome/source-filesystem": "^0.6.2",
-    "@gridsome/transformer-remark": "^0.4.0",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.2",
-    "vue-feather-icons": "^5.0.0"
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "typescript": "^5.3.3"
   }
 }
