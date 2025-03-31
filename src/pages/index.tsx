@@ -4,6 +4,7 @@ import type { Post } from "../components/post"
 
 import Layout from '../components/layouts/main'
 import PostList from "../components/post-list"
+import Seo from "../components/seo"
 
 const dummyPosts: Post[] = [
   {
@@ -46,8 +47,6 @@ const Index = (_: PageProps) => {
   )
 }
 
-export const Head: HeadFC = () => (
-  <title>Home Page</title>
-)
+export const Head: HeadFC = () => <Seo title="Home" />
 
 export default Index

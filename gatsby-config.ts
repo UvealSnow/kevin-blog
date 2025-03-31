@@ -4,6 +4,7 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: process.env.SITE_NAME,
     siteUrl: process.env.SITE_URL,
+    description: process.env.SITE_DESCRIPTION
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin

@@ -2,6 +2,7 @@ import * as React from 'react'
 import type { HeadFC, PageProps } from 'gatsby'
 
 import Layout from '../components/layouts/main'
+import Seo from '../components/seo'
 
 const About = (_: PageProps) => {
   const pageTitle = 'About me'
@@ -13,8 +14,6 @@ const About = (_: PageProps) => {
   )
 }
 
-export const Head: HeadFC = () => (
-  <title>About me Page</title>
-)
+export const Head: HeadFC = () => <Seo title="About" />
 
 export default About

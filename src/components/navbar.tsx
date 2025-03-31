@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import { groupClassNames } from "../utils"
 
 const title = 'Carolina Rivera Luque'
@@ -18,6 +18,16 @@ interface NavbarProps {
 }
 
 const Navbar = ({ isOpen }: NavbarProps) => {
+  const { site: { siteMetadata } } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+        }
+      }
+    }
+  `)
   const navbarClasses = `
       transition-all duration-500
       flex flex-col flex-none items-center
@@ -35,8 +45,8 @@ const Navbar = ({ isOpen }: NavbarProps) => {
         alt={pictureAlt}
       />
 
-      <h5 className="text-xl text-white pt-8">{title}</h5>
-      <p className="text-xs text-center pt-4">{subtitle}</p>
+      <h5 className="text-xl text-white pt-8">{siteMetadata.title}</h5>
+      <p className="text-xs text-center pt-4">{siteMetadata.description || "Description"}</p>
 
       <ul className="flex flex-col space-y-4 text-center pt-8">
         {links.map((link, index) => (
