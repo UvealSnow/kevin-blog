@@ -12,13 +12,14 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     'gatsby-plugin-postcss',
+    'gatsby-plugin-mdx',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        "name": "images",
-        "path": "./src/images/"
+        name: 'posts',
+        path: `${__dirname}/content/posts`,
       },
-      __key: "images"
+      __key: 'posts',
     },
     {
       resolve: 'gatsby-plugin-svgr',
