@@ -1,4 +1,5 @@
-import type { GatsbyConfig } from "gatsby"
+import type { GatsbyConfig } from 'gatsby'
+import type { IPluginOptions } from '@kevhah/gatsby-plugin-directus-source'
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -13,6 +14,10 @@ const config: GatsbyConfig = {
   plugins: [
     'gatsby-plugin-postcss',
     'gatsby-plugin-mdx',
+    {
+      resolve: '@kevhah/gatsby-plugin-directus-source',
+      options: {} satisfies IPluginOptions,
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {

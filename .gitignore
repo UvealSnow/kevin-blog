@@ -4,3 +4,4 @@ public
 src/*.d.ts
 .env
 *.sh
+dist
