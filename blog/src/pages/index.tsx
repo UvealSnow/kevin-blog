@@ -6,7 +6,7 @@ import Layout from '../components/layouts/main'
 import PostList from "../components/post-list"
 import Seo from "../components/seo"
 
-const dummyPosts: Post[] = [
+export const dummyPosts: Post[] = [
   {
     uid: '1',
     uri: 'post-1',

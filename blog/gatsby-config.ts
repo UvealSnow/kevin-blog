@@ -22,6 +22,14 @@ const config: GatsbyConfig = {
       __key: 'posts',
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'pages',
+        path: `${__dirname}/content/pages`,
+      },
+      __key: 'pages',
+    },
+    {
       resolve: 'gatsby-plugin-svgr',
       options: {
         svgo: false,

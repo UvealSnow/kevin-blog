@@ -1,37 +1,13 @@
 {
-  "name": "blog",
-  "version": "0.1.0",
-  "private": true,
-  "description": "blog",
-  "author": "Kevin Avila",
-  "keywords": [
-    "gatsby"
-  ],
+  "name": "@kevhah/monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "gatsby": "^5.14.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@mdx-js/react": "^3.1.0",
-    "@types/node": "^20.11.19",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
-    "autoprefixer": "^10.4.21",
-    "gatsby-plugin-mdx": "^5.14.0",
-    "gatsby-plugin-postcss": "^6.14.0",
-    "gatsby-plugin-svgr": "3.0.0-beta.0",
-    "gatsby-source-filesystem": "^5.14.0",
-    "postcss": "^8.5.3",
-    "tailwindcss": "3",
-    "typescript": "^5.3.3"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.7.1"
 }
