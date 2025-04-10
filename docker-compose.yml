@@ -1,0 +1,71 @@
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: database
+    restart: always
+    networks:
+      - directus
+    volumes:
+      - database:/var/lib/postgresql/data
+    env_file:
+      - config/.env.postgres
+
+  cache:
+    image: redis:7-alpine
+    container_name: cache
+    restart: always
+    networks:
+      - directus
+
+  directus:
+    image: directus/directus:11
+    container_name: directus
+    restart: always
+    networks:
+      - directus
+    depends_on:
+      - database
+      - cache
+    ports:
+      - "8055:8055"
+    env_file:
+      - config/.env.directus
+    volumes:
+      - uploads:/directus/uploads
+
+  blog-ssg:
+    build:
+      context: .
+      dockerfile: ./docker/gatsby/Dockerfile
+      target: serve
+    container_name: blog-ssg
+    restart: unless-stopped
+    networks:
+      - directus
+    depends_on:
+      - directus
+    ports:
+      - "8000:80"
+    env_file:
+      - config/.env.gatsby
+
+  blog-dev:
+    build:
+      context: .
+      dockerfile: ./docker/gatsby/Dockerfile
+      target: dev
+    container_name: blog-dev
+    restart: unless-stopped
+    networks:
+      - directus
+    depends_on:
+      - directus
+    ports:
+      - "8000:8000"
+
+volumes:
+  database:
+  uploads:
+
+networks:
+  directus:
