@@ -2,8 +2,6 @@ import * as React from "react"
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import { groupClassNames } from "../utils"
 
-const title = 'Carolina Rivera Luque'
-const subtitle = 'Loquilla fisioterapeuta (doble maestra) en alemania'
 const pictureAlt = 'Carolina Rivera Luque - Placeholder'
 const links = [
   { href: '/', label: 'Home' },

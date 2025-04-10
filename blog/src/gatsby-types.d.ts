@@ -849,7 +849,6 @@ type MdxFrontmatter = {
   readonly date: Maybe<Scalars['Date']>;
   readonly description: Maybe<Scalars['String']>;
   readonly featured: Maybe<Scalars['Boolean']>;
-  readonly last_updated: Maybe<Scalars['Date']>;
   readonly page: Maybe<Scalars['Boolean']>;
   readonly published: Maybe<Scalars['Boolean']>;
   readonly tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
@@ -864,20 +863,11 @@ type MdxFrontmatter_dateArgs = {
   locale: InputMaybe<Scalars['String']>;
 };
 
-
-type MdxFrontmatter_last_updatedArgs = {
-  difference: InputMaybe<Scalars['String']>;
-  formatString: InputMaybe<Scalars['String']>;
-  fromNow: InputMaybe<Scalars['Boolean']>;
-  locale: InputMaybe<Scalars['String']>;
-};
-
 type MdxFrontmatterFieldSelector = {
   readonly canonical_url: InputMaybe<FieldSelectorEnum>;
   readonly date: InputMaybe<FieldSelectorEnum>;
   readonly description: InputMaybe<FieldSelectorEnum>;
   readonly featured: InputMaybe<FieldSelectorEnum>;
-  readonly last_updated: InputMaybe<FieldSelectorEnum>;
   readonly page: InputMaybe<FieldSelectorEnum>;
   readonly published: InputMaybe<FieldSelectorEnum>;
   readonly tags: InputMaybe<FieldSelectorEnum>;
@@ -889,7 +879,6 @@ type MdxFrontmatterFilterInput = {
   readonly date: InputMaybe<DateQueryOperatorInput>;
   readonly description: InputMaybe<StringQueryOperatorInput>;
   readonly featured: InputMaybe<BooleanQueryOperatorInput>;
-  readonly last_updated: InputMaybe<DateQueryOperatorInput>;
   readonly page: InputMaybe<BooleanQueryOperatorInput>;
   readonly published: InputMaybe<BooleanQueryOperatorInput>;
   readonly tags: InputMaybe<StringQueryOperatorInput>;
@@ -901,7 +890,6 @@ type MdxFrontmatterSortInput = {
   readonly date: InputMaybe<SortOrderEnum>;
   readonly description: InputMaybe<SortOrderEnum>;
   readonly featured: InputMaybe<SortOrderEnum>;
-  readonly last_updated: InputMaybe<SortOrderEnum>;
   readonly page: InputMaybe<SortOrderEnum>;
   readonly published: InputMaybe<SortOrderEnum>;
   readonly tags: InputMaybe<SortOrderEnum>;

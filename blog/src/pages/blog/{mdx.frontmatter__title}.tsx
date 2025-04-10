@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql, HeadProps, type PageProps } from 'gatsby'
+import { graphql, HeadProps, type PageProps, navigate } from 'gatsby'
 import Seo from '../../components/seo'
 import MainLayout from '../../components/layouts/main'
 
@@ -9,10 +9,20 @@ interface QueryData {
       title: string
       date: string
     }
-  }
+  } | null
 }
 
 const Post = ({ data, children }: PageProps<QueryData>) => {
+  React.useEffect(() => {
+    if (!data.mdx) {
+      navigate('/404')
+    }
+  }, [data.mdx])
+
+  if (!data.mdx) {
+    return null
+  }
+
   return (
     <MainLayout pageTitle={data.mdx.frontmatter.title}>
       {children}
@@ -36,6 +46,11 @@ export const query = graphql`
 `
 
 interface HeadInterface extends HeadProps<QueryData>{}
-export const Head = ({ data }: HeadInterface) => <Seo title={data.mdx.frontmatter.title} />
+export const Head = ({ data }: HeadInterface) => {
+  if (!data.mdx) {
+    return <Seo title="Post not found" />
+  }
+  return <Seo title={data.mdx.frontmatter.title} />
+}
 
 export default Post
