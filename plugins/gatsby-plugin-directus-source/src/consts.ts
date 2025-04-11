@@ -12,4 +12,5 @@ export const CACHE_KEYS = {
 
 // @TODO: TDB
 export const ERROR_CODES = {
+  NO_DIRECTUS_URL: 'NO_DIRECTUS_URL',
 } as const

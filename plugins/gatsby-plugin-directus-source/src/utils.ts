@@ -17,3 +17,13 @@ export async function fetchGraphQL<T>(endpoint: string, query: string): Promise<
 
   return await response.json() as T
 }
+
+export async function fetchREST<T>(endpoint: string, query: Record<string, any>): Promise<T> {
+  const URL = `${endpoint}?${new URLSearchParams(query).toString()}`
+  const response = await fetch(URL, {
+    method: 'GET',
+    headers,
+  })
+
+  return await response.json() as T
+}

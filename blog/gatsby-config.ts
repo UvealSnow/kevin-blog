@@ -1,5 +1,13 @@
 import type { GatsbyConfig } from 'gatsby'
-import type { IPluginOptions } from '@kevhah/gatsby-plugin-directus-source'
+import { COLLECTIONS } from './cms-config'
+import { IPluginOptions } from '@kevhah/gatsby-plugin-directus-source'
+
+const directusUrl = process.env.CMS_URL
+const collections = COLLECTIONS
+
+if (!directusUrl) {
+  throw new Error('CMS_URL is not set')
+}
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -16,7 +24,10 @@ const config: GatsbyConfig = {
     'gatsby-plugin-mdx',
     {
       resolve: '@kevhah/gatsby-plugin-directus-source',
-      options: {} satisfies IPluginOptions,
+      options: {
+        directusUrl,
+        collections,
+      } satisfies IPluginOptions
     },
     {
       resolve: 'gatsby-source-filesystem',

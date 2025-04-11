@@ -749,7 +749,6 @@ type Mdx = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly excerpt: Maybe<Scalars['String']>;
   readonly frontmatter: Maybe<MdxFrontmatter>;
-  readonly gatsbyPath: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
   readonly internal: Internal;
   readonly parent: Maybe<Node>;
@@ -759,11 +758,6 @@ type Mdx = Node & {
 
 type Mdx_excerptArgs = {
   pruneLength?: InputMaybe<Scalars['Int']>;
-};
-
-
-type Mdx_gatsbyPathArgs = {
-  filePath: InputMaybe<Scalars['String']>;
 };
 
 
@@ -821,7 +815,6 @@ type MdxFieldSelector = {
   readonly children: InputMaybe<NodeFieldSelector>;
   readonly excerpt: InputMaybe<FieldSelectorEnum>;
   readonly frontmatter: InputMaybe<MdxFrontmatterFieldSelector>;
-  readonly gatsbyPath: InputMaybe<FieldSelectorEnum>;
   readonly id: InputMaybe<FieldSelectorEnum>;
   readonly internal: InputMaybe<InternalFieldSelector>;
   readonly parent: InputMaybe<NodeFieldSelector>;
@@ -833,7 +826,6 @@ type MdxFilterInput = {
   readonly children: InputMaybe<NodeFilterListInput>;
   readonly excerpt: InputMaybe<StringQueryOperatorInput>;
   readonly frontmatter: InputMaybe<MdxFrontmatterFilterInput>;
-  readonly gatsbyPath: InputMaybe<StringQueryOperatorInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
   readonly internal: InputMaybe<InternalFilterInput>;
   readonly parent: InputMaybe<NodeFilterInput>;
@@ -942,7 +934,6 @@ type MdxSortInput = {
   readonly children: InputMaybe<NodeSortInput>;
   readonly excerpt: InputMaybe<SortOrderEnum>;
   readonly frontmatter: InputMaybe<MdxFrontmatterSortInput>;
-  readonly gatsbyPath: InputMaybe<SortOrderEnum>;
   readonly id: InputMaybe<SortOrderEnum>;
   readonly internal: InputMaybe<InternalSortInput>;
   readonly parent: InputMaybe<NodeSortInput>;
@@ -992,10 +983,141 @@ type PageInfo = {
   readonly totalCount: Scalars['Int'];
 };
 
+type Posts = Node & {
+  readonly children: ReadonlyArray<Node>;
+  readonly content: Maybe<Scalars['String']>;
+  readonly id: Scalars['ID'];
+  readonly internal: Internal;
+  readonly languages_code: Maybe<Scalars['String']>;
+  readonly parent: Maybe<Node>;
+  readonly posts_id: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
+};
+
+type PostsConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<PostsEdge>;
+  readonly group: ReadonlyArray<PostsGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<Posts>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type PostsConnection_distinctArgs = {
+  field: PostsFieldSelector;
+};
+
+
+type PostsConnection_groupArgs = {
+  field: PostsFieldSelector;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type PostsConnection_maxArgs = {
+  field: PostsFieldSelector;
+};
+
+
+type PostsConnection_minArgs = {
+  field: PostsFieldSelector;
+};
+
+
+type PostsConnection_sumArgs = {
+  field: PostsFieldSelector;
+};
+
+type PostsEdge = {
+  readonly next: Maybe<Posts>;
+  readonly node: Posts;
+  readonly previous: Maybe<Posts>;
+};
+
+type PostsFieldSelector = {
+  readonly children: InputMaybe<NodeFieldSelector>;
+  readonly content: InputMaybe<FieldSelectorEnum>;
+  readonly id: InputMaybe<FieldSelectorEnum>;
+  readonly internal: InputMaybe<InternalFieldSelector>;
+  readonly languages_code: InputMaybe<FieldSelectorEnum>;
+  readonly parent: InputMaybe<NodeFieldSelector>;
+  readonly posts_id: InputMaybe<FieldSelectorEnum>;
+  readonly title: InputMaybe<FieldSelectorEnum>;
+};
+
+type PostsFilterInput = {
+  readonly children: InputMaybe<NodeFilterListInput>;
+  readonly content: InputMaybe<StringQueryOperatorInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly internal: InputMaybe<InternalFilterInput>;
+  readonly languages_code: InputMaybe<StringQueryOperatorInput>;
+  readonly parent: InputMaybe<NodeFilterInput>;
+  readonly posts_id: InputMaybe<StringQueryOperatorInput>;
+  readonly title: InputMaybe<StringQueryOperatorInput>;
+};
+
+type PostsGroupConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<PostsEdge>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+  readonly group: ReadonlyArray<PostsGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<Posts>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type PostsGroupConnection_distinctArgs = {
+  field: PostsFieldSelector;
+};
+
+
+type PostsGroupConnection_groupArgs = {
+  field: PostsFieldSelector;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type PostsGroupConnection_maxArgs = {
+  field: PostsFieldSelector;
+};
+
+
+type PostsGroupConnection_minArgs = {
+  field: PostsFieldSelector;
+};
+
+
+type PostsGroupConnection_sumArgs = {
+  field: PostsFieldSelector;
+};
+
+type PostsSortInput = {
+  readonly children: InputMaybe<NodeSortInput>;
+  readonly content: InputMaybe<SortOrderEnum>;
+  readonly id: InputMaybe<SortOrderEnum>;
+  readonly internal: InputMaybe<InternalSortInput>;
+  readonly languages_code: InputMaybe<SortOrderEnum>;
+  readonly parent: InputMaybe<NodeSortInput>;
+  readonly posts_id: InputMaybe<SortOrderEnum>;
+  readonly title: InputMaybe<SortOrderEnum>;
+};
+
 type Query = {
   readonly allDirectory: DirectoryConnection;
   readonly allFile: FileConnection;
   readonly allMdx: MdxConnection;
+  readonly allPosts: PostsConnection;
   readonly allSite: SiteConnection;
   readonly allSiteBuildMetadata: SiteBuildMetadataConnection;
   readonly allSiteFunction: SiteFunctionConnection;
@@ -1004,6 +1126,7 @@ type Query = {
   readonly directory: Maybe<Directory>;
   readonly file: Maybe<File>;
   readonly mdx: Maybe<Mdx>;
+  readonly posts: Maybe<Posts>;
   readonly site: Maybe<Site>;
   readonly siteBuildMetadata: Maybe<SiteBuildMetadata>;
   readonly siteFunction: Maybe<SiteFunction>;
@@ -1033,6 +1156,14 @@ type Query_allMdxArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<ReadonlyArray<InputMaybe<MdxSortInput>>>;
+};
+
+
+type Query_allPostsArgs = {
+  filter: InputMaybe<PostsFilterInput>;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<PostsSortInput>>>;
 };
 
 
@@ -1164,11 +1295,22 @@ type Query_mdxArgs = {
   children: InputMaybe<NodeFilterListInput>;
   excerpt: InputMaybe<StringQueryOperatorInput>;
   frontmatter: InputMaybe<MdxFrontmatterFilterInput>;
-  gatsbyPath: InputMaybe<StringQueryOperatorInput>;
   id: InputMaybe<StringQueryOperatorInput>;
   internal: InputMaybe<InternalFilterInput>;
   parent: InputMaybe<NodeFilterInput>;
   tableOfContents: InputMaybe<JSONQueryOperatorInput>;
+};
+
+
+type Query_postsArgs = {
+  children: InputMaybe<NodeFilterListInput>;
+  content: InputMaybe<StringQueryOperatorInput>;
+  id: InputMaybe<StringQueryOperatorInput>;
+  internal: InputMaybe<InternalFilterInput>;
+  languages_code: InputMaybe<StringQueryOperatorInput>;
+  parent: InputMaybe<NodeFilterInput>;
+  posts_id: InputMaybe<StringQueryOperatorInput>;
+  title: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -1972,21 +2114,25 @@ type SitePluginSortInput = {
 
 type SiteSiteMetadata = {
   readonly description: Maybe<Scalars['String']>;
+  readonly siteUrl: Maybe<Scalars['String']>;
   readonly title: Maybe<Scalars['String']>;
 };
 
 type SiteSiteMetadataFieldSelector = {
   readonly description: InputMaybe<FieldSelectorEnum>;
+  readonly siteUrl: InputMaybe<FieldSelectorEnum>;
   readonly title: InputMaybe<FieldSelectorEnum>;
 };
 
 type SiteSiteMetadataFilterInput = {
   readonly description: InputMaybe<StringQueryOperatorInput>;
+  readonly siteUrl: InputMaybe<StringQueryOperatorInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
 };
 
 type SiteSiteMetadataSortInput = {
   readonly description: InputMaybe<SortOrderEnum>;
+  readonly siteUrl: InputMaybe<SortOrderEnum>;
   readonly title: InputMaybe<SortOrderEnum>;
 };
 

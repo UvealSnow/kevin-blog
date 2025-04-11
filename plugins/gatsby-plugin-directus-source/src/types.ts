@@ -5,9 +5,31 @@ export interface IPost {
 
 }
 
+export interface iCollection {
+  name: string,
+  fields: string[],
+  filters: Record<string, any>,
+}
+
 interface IPluginOptionsKeys {
-  // TODO: Set your plugin options here
-  [key: string]: any
+  directusUrl: string,
+  collections: iCollection[],
+}
+
+export interface IApiResponse {
+  data: IDataItem[]
+}
+
+export interface IDataItem {
+  id: string
+  status: 'published' | 'draft' | 'archived'
+  translations: ITranslation[]
+}
+
+export interface ITranslation {
+  id: number
+  languages_code: string
+  [key: string]: string | number
 }
 
 /**

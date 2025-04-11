@@ -29,12 +29,7 @@ const Index = ({ data }: PageProps<QueryData>) => {
 
 export const query = graphql`
   query {
-    allMdx(
-      sort: { frontmatter: { date: DESC } }
-      filter: {
-        internal: { contentFilePath: { regex: "/posts/" } }
-      }
-    ) {
+    allMdx(sort: { frontmatter: { date: DESC } }) {
       nodes {
         frontmatter {
           date(formatString: "DD MMMM YYYY")
