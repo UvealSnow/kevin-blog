@@ -1,0 +1,31 @@
+---
+import MainLayout from '@components/layouts/MainLayout.astro'
+
+export async function getStaticPaths() {
+  const response = await fetch('http://localhost:8055/items/posts?fields=id,status,translations.*&filter=[status][_eq]=published')
+	const json = await response.json()
+	const data = json.data[0].translations
+
+	interface PostTranslation {
+		id: number
+		posts_id: string
+		languages_code: string 
+		title: string
+		content: string
+	}
+
+	return data.map((translation: PostTranslation) => {
+		const locale = translation.languages_code
+		const slug = translation.posts_id
+		return {
+			params: { locale, slug }
+		}
+	})
+}
+
+const { locale, slug } = Astro.params
+---
+
+<MainLayout locale={locale} title='' description=''>
+	<h1>Blog post: {locale} - {slug}</h1>
+</MainLayout>
