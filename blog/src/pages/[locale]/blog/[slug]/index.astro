@@ -6,24 +6,22 @@ const { locale, slug } = Astro.params
 interface PostTranslation {
 	id: number
 	posts_id: string
-	languages_code: string 
+	languages_code: string
 	title: string
 	content: string
 }
 
 export async function getStaticPaths() {
-  const response = await fetch('http://localhost:8055/items/posts?filter[status]=published&fields=translations.*')
+	const response = await fetch(
+		'http://localhost:8055/items/posts?filter[status]=published&fields=translations.*',
+	)
 	const json = await response.json()
 	const data = json.data[0].translations
 
-
 	return data.map((translation: PostTranslation) => {
-		const {
-			languages_code: locale,
-			posts_id: slug,
-		} = translation
+		const { languages_code: locale, posts_id: slug } = translation
 		return {
-			params: { locale, slug }
+			params: { locale, slug },
 		}
 	})
 }
@@ -32,15 +30,15 @@ async function getPost(slug: string): Promise<PostTranslation[]> {
 	const url = `http://localhost:8055/items/posts?filter[status]=published&filter[id]=${slug}&fields=translations.*`
 	const response = await fetch(url)
 	const json = await response.json()
-	return json.data[0].translations as PostTranslation[];
+	return json.data[0].translations as PostTranslation[]
 }
 
 const post = await getPost(slug)
 ---
 
-<MainLayout locale={locale} title='' description=''>
+<MainLayout locale={locale} title="" description="">
 	<div>
 		<h1>Blog post: {locale} - {slug}</h1>
-		<div set:html={post[0].content}></div>
+		<div set:html={post[0].content} />
 	</div>
 </MainLayout>

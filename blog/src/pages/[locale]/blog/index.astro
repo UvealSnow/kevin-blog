@@ -2,15 +2,12 @@
 import MainLayout from '@components/layouts/MainLayout.astro'
 
 export function getStaticPaths() {
-	return [
-		{ params: { locale: 'en-US' } },
-		{ params: { locale: 'es-ES' } }
-	]
+	return [{ params: { locale: 'en-US' } }, { params: { locale: 'es-ES' } }]
 }
 
 const { locale } = Astro.params
 ---
 
-<MainLayout locale={locale} title={`Blog ${locale}`} description='i18n blog description'>
+<MainLayout locale={locale} title={`Blog ${locale}`} description="i18n blog description">
 	<h1>Blog index: {locale}</h1>
 </MainLayout>
