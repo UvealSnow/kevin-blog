@@ -1,4 +1,6 @@
 ---
+import Navbar from '../navbar.jsx'
+
 interface Props {
 	locale: string
 	title: string
@@ -18,6 +20,7 @@ const { locale, title, description } = Astro.props
 		<header>
 			<slot name="header" />
 		</header>
+			<Navbar isOpen={true} title="A nice title" description='A nice description' />
 		<main>
 			<slot />
 		</main>

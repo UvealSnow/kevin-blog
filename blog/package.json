@@ -10,8 +10,13 @@
 		"astro": "astro"
 	},
 	"dependencies": {
+		"@astrojs/react": "^4.2.5",
 		"@kevhah/i18n": "workspace:*",
-		"astro": "^5.7.3"
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"astro": "^5.7.3",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0"
 	},
 	"devDependencies": {
 		"@types/node": "^22.14.1"
