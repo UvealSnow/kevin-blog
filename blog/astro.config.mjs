@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
+import i18n from '@kevhah/i18n'
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,4 +16,26 @@ export default defineConfig({
 			},
 		},
 	},
+	integrations: [
+		i18n({
+			config: {
+				availableLocales: ['en-US', 'es-ES'],
+				defaultLocale: 'en-US',
+				dictionary: {
+					'en-US': {
+						hello: 'Aloha, World!',
+						friends: {
+							mex: 'Crazy guys',
+						},
+					},
+					'es-ES': {
+						hello: 'Aloha, Mundo!',
+						friends: {
+							mex: 'Locos',
+						},
+					},
+				},
+			},
+		}),
+	],
 })

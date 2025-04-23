@@ -1,0 +1,18 @@
+---
+import MainLayout from '@components/layouts/MainLayout.astro'
+import type { GetStaticPaths } from 'astro'
+import { readCache } from '@kevhah/i18n'
+
+export const getStaticPaths = (async () => {
+	const { availableLocales } = readCache()
+	return availableLocales.map((locale: string) => ({ params: { locale } }))
+}) satisfies GetStaticPaths
+
+const { t } = Astro.locals
+const { locale } = Astro.params
+---
+
+<MainLayout title="Index" description="Index desc" locale={locale}>
+	<h1>{t('hello')}</h1>
+	<p>{t('friends.mex', 2)}</p>
+</MainLayout>
