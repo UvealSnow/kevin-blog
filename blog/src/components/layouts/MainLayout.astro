@@ -1,11 +1,16 @@
 ---
-import Navbar from '../navbar.jsx'
+import '../../styles/global.css'
+import Navbar from '../navbar.astro'
+import Cross from '../../icons/close.svg'
+import Menu from '../../icons/menu.svg'
 
 interface Props {
 	locale: string
 	title: string
 	description: string
 }
+
+const { t } = Astro.locals
 const { locale, title, description } = Astro.props
 ---
 
@@ -17,12 +22,35 @@ const { locale, title, description } = Astro.props
 		<title>{title}</title>
 	</head>
 	<body>
-		<header>
-			<slot name="header" />
-		</header>
-			<Navbar isOpen={true} title="A nice title" description='A nice description' />
-		<main>
-			<slot />
+		<main id="main-layout" class="flex flex-col md:flex-row">
+			<div class="bg-primary text-white
+					flex flex-row justify-end
+					px-8 py-4 shadow
+					md:hidden">
+				<button id="toggle-menu" @click="$store.menu = !$store.menu">
+					<Cross class="hidden" />
+					<Menu />
+				</button>
+			</div>
+
+			<Navbar title={t('page.title')} description={t('page.description')} />
+
+			<div class="m-8">
+				<slot />
+			</div>
 		</main>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const toggleButton = document.getElementById('toggle-menu')!
+				const navbar = document.getElementById('navbar')!
+
+				toggleButton.addEventListener('click', () => {
+					navbar.classList.toggle('left-0')
+					for (let i = 0; i < toggleButton.children.length; i++) {
+						toggleButton.children[i].classList.toggle('hidden')
+					}
+				})
+			})
+		</script>
 	</body>
 </html>
