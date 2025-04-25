@@ -2,6 +2,9 @@
 import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import i18n from '@kevhah/i18n'
+import { getDictionary } from '@kevhah/dictionaries'
+
+const dictionary = getDictionary('kevin-avila');
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,20 +28,8 @@ export default defineConfig({
 			config: {
 				availableLocales: ['en-US', 'es-ES'],
 				defaultLocale: 'en-US',
-				dictionary: {
-					'en-US': {
-						hello: 'Aloha, World!',
-						friends: {
-							mex: 'Crazy guys',
-						},
-					},
-					'es-ES': {
-						hello: 'Aloha, Mundo!',
-						friends: {
-							mex: 'Locos',
-						},
-					},
-				},
+				// @ts-ignore
+				dictionary,
 			},
 		}),
 	],
