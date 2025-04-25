@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
+import tailwindcss from '@tailwindcss/vite'
 import i18n from '@kevhah/i18n'
 
 import react from '@astrojs/react'
@@ -15,8 +16,11 @@ export default defineConfig({
 		resolve: {
 			alias: {
 				'@components': '/src/components',
+				'@icons': '/src/icons',
+				'@utils': '/src/utils',
 			},
 		},
+		plugins: [tailwindcss()],
 	},
 	integrations: [
 		i18n({
