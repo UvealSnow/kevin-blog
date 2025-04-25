@@ -15,8 +15,19 @@
 		"build": "tsc",
 		"watch": "tsc -w"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"i18n",
+		"internationalization",
+		"localization",
+		"locales",
+		"typescript",
+		"astro"
+	],
+	"author": {
+		"name": "Kevin Avila",
+		"email": "hola@kevinavila.pro",
+		"url": "https://kevinavila.pro"
+	},
 	"license": "UNLICENSE",
 	"packageManager": "pnpm@10.9.0",
 	"devDependencies": {

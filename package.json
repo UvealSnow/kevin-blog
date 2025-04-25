@@ -12,7 +12,11 @@
 		"typescript",
 		"pnpm"
 	],
-	"author": "Kevin Avila <hola@kevinavila.pro>",
+	"author": {
+		"name": "Kevin Avila",
+		"email": "hola@kevinavila.pro",
+		"url": "https://kevinavila.pro"
+	},
 	"license": "UNLICENSE",
 	"devDependencies": {
 		"@types/node": "^22.14.1",
