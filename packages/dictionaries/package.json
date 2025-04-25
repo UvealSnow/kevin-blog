@@ -12,7 +12,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "tsc --watch",
     "build": "vite build && pnpm declarations",
     "declarations": "tsc --declaration --emitDeclarationOnly --outDir dist"
   },
