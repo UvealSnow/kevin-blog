@@ -1,0 +1,37 @@
+{
+  "name": "@kevhah/dictionaries",
+  "version": "1.0.0",
+  "description": "i18n dictionaries",
+  "type": "module",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": "./dist/dictionaries.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && pnpm declarations",
+    "declarations": "tsc --declaration --emitDeclarationOnly --outDir dist"
+  },
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "localization",
+    "dictionaries",
+    "typescript",
+    "vite"
+  ],
+  "author": {
+    "name": "Kevin Avila",
+    "email": "hola@kevinavila.pro",
+    "url": "https://kevinavila.pro"
+  },
+  "license": "UNLICENSE",
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1"
+  }
+}
