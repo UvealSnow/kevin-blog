@@ -1,5 +1,5 @@
 ---
-import type { PostInterface } from '../types'
+import type { PostInterface } from '@src/types'
 import Post from './post.astro'
 
 interface Props {
@@ -12,7 +12,11 @@ const { posts } = Astro.props
 <div class="flex flex-col gap-8">
 	{
 		posts.map((post) => (
-			<Post post={post.translations[0]} author={post.author} createdAt={post.date_created} />
+			<Post
+				translations={post.translations}
+				author={post.user_created}
+				createdAt={post.date_created}
+			/>
 		))
 	}
 </div>

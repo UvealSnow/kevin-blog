@@ -1,7 +1,7 @@
 ---
 import MainLayout from '@components/layouts/MainLayout.astro'
 import Author from '@components/author.astro'
-import { get } from '../../../../cms'
+import { get } from '@src/cms'
 import type { PostAuthor, PostTranslation } from '@src/types'
 
 const { locale, slug } = Astro.params
@@ -20,7 +20,6 @@ interface Translation {
 }
 
 export async function getStaticPaths() {
-	// console.log(process.env)
 	const { data } = await get<Translation[]>('items/posts', {
 		filter: {
 			status: {
@@ -30,12 +29,12 @@ export async function getStaticPaths() {
 		fields: ['translations.slug', 'translations.languages_code'],
 	})
 
-	return data[0].translations.map((translation) => {
+	return data.flatMap((entry) => entry.translations.map((translation) => {
 		const { languages_code: locale, slug } = translation
 		return {
 			params: { locale, slug },
 		}
-	})
+	}))
 }
 
 const { data } = await get<Post[]>('items/posts', {
@@ -70,13 +69,22 @@ const { data } = await get<Post[]>('items/posts', {
 	],
 })
 
-const { user_created: author, translations } = data[0]
+const { user_created: author, translations, date_created } = data[0]
 const postTranslation = translations.find((t) => t.languages_code === locale)!
+const createdAt = new Date(date_created).toLocaleString('en-GB', {
+	day: '2-digit',
+	month: '2-digit',
+	year: 'numeric',
+	hour: '2-digit',
+	minute: '2-digit',
+	hour12: true,
+})
 ---
 
 <MainLayout locale={locale} title="" description="">
 	<div>
-		<h1 class="text-5xl mb-8">{postTranslation.name}</h1>
+		<h1 class="text-5xl">{postTranslation.name}</h1>
+		<p class="text-xs mt-2 mb-8">First published: {createdAt}</p>
 		<Author author={author} />
 		<div set:html={postTranslation.content} />
 	</div>

@@ -1,13 +1,65 @@
 ---
 import MainLayout from '@components/layouts/MainLayout.astro'
+import PostList from '@components/post-list.astro'
+import { get } from '@src/cms'
+import type { PostAuthor, PostTranslation } from '@src/types'
 
-export function getStaticPaths() {
-	return [{ params: { locale: 'en-US' } }, { params: { locale: 'es-ES' } }]
+interface Paths {
+	translations: { languages_code: string }[]
 }
 
+interface Post {
+	date_created: string
+	translations: PostTranslation[]
+	user_created: PostAuthor
+}
+
+const { t } = Astro.locals
 const { locale } = Astro.params
+
+export async function getStaticPaths() {
+	const { data } = await get<Paths[]>('items/posts', {
+		filter: {
+			status: {
+				_eq: 'published',
+			},
+		},
+		fields: ['translations.languages_code'],
+	})
+
+	const locales = Array.from(new Set(data.flatMap((entry) =>
+		entry.translations.flatMap(({ languages_code: locale }) => locale),
+	))).map(l => ({ params: { locale: l } }))
+
+	return locales
+}
+
+const { data: posts } = await get<Post[]>('items/posts', {
+	filter: {
+		_and: [
+			{ status: { _eq: 'published' } },
+			{ translations: { languages_code: { _eq: locale } } }
+		],
+	},
+	fields: [
+		'translations.slug',
+		'translations.name',
+		'translations.languages_code',
+		// 'translations.description',
+		'date_created',
+		'user_created.first_name',
+		'user_created.last_name',
+		'user_created.email',
+		'user_created.location',
+		'user_created.title',
+		'user_created.description',
+		'user_created.avatar',
+	]
+})
 ---
 
-<MainLayout locale={locale} title={`Blog ${locale}`} description="i18n blog description">
-	<h1>Blog index: {locale}</h1>
+<MainLayout locale={locale} title={t('blog.header')} description={t('blog.description')}>
+	<h1 class="text-5xl mb-8">{t('blog.header')}</h1>
+
+	<PostList posts={posts} />
 </MainLayout>
