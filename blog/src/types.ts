@@ -20,8 +20,7 @@ export interface PostAuthor {
 }
 
 export interface PostInterface {
-	id: string
 	date_created: string
 	translations: PostTranslation[]
-	author: PostAuthor
+	user_created: PostAuthor
 }
