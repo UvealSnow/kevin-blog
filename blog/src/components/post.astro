@@ -1,0 +1,30 @@
+---
+import type { PostTranslation, PostAuthor } from '../types'
+import Author from './author.astro'
+
+interface Props {
+	post: PostTranslation
+	author: PostAuthor
+	createdAt: string
+}
+
+const { post, author, createdAt } = Astro.props
+---
+
+<a href={`/blog/`}>
+	<div class="flex flex-col gap-3
+    cursor-pointer group">
+		<h2 class="text-2xl
+      group-hover:text-primary
+      active:text-primary">
+			{post.name}
+		</h2>
+
+		<Author author={author} />
+
+		{post.thumbnail && <img class="rounded-lg w-96" src={post.thumbnail} alt={post.name} />}
+
+		<p class="max-w-2xl mt-4">{post.description}</p>
+		<p class="text-xs">Posted at: {createdAt}</p>
+	</div>
+</a>

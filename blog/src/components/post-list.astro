@@ -1,0 +1,18 @@
+---
+import type { PostInterface } from '../types'
+import Post from './post.astro'
+
+interface Props {
+	posts: PostInterface[]
+}
+
+const { posts } = Astro.props
+---
+
+<div class="flex flex-col gap-8">
+	{
+		posts.map((post) => (
+			<Post post={post.translations[0]} author={post.author} createdAt={post.date_created} />
+		))
+	}
+</div>

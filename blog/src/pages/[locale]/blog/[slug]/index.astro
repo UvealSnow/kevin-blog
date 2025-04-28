@@ -1,44 +1,83 @@
 ---
 import MainLayout from '@components/layouts/MainLayout.astro'
+import Author from '@components/author.astro'
+import { get } from '../../../../cms'
+import type { PostAuthor, PostTranslation } from '@src/types'
 
 const { locale, slug } = Astro.params
 
-interface PostTranslation {
-	id: number
-	posts_id: string
-	languages_code: string
-	title: string
-	content: string
+interface Post {
+	date_created: string
+	translations: PostTranslation[]
+	user_created: PostAuthor
+}
+
+interface Translation {
+	translations: {
+		slug: string
+		languages_code: string
+	}[]
 }
 
 export async function getStaticPaths() {
-	const response = await fetch(
-		'http://localhost:8055/items/posts?filter[status]=published&fields=translations.*',
-	)
-	const json = await response.json()
-	const data = json.data[0].translations
+	// console.log(process.env)
+	const { data } = await get<Translation[]>('items/posts', {
+		filter: {
+			status: {
+				_eq: 'published',
+			},
+		},
+		fields: ['translations.slug', 'translations.languages_code'],
+	})
 
-	return data.map((translation: PostTranslation) => {
-		const { languages_code: locale, posts_id: slug } = translation
+	return data[0].translations.map((translation) => {
+		const { languages_code: locale, slug } = translation
 		return {
 			params: { locale, slug },
 		}
 	})
 }
 
-async function getPost(slug: string): Promise<PostTranslation[]> {
-	const url = `http://localhost:8055/items/posts?filter[status]=published&filter[id]=${slug}&fields=translations.*`
-	const response = await fetch(url)
-	const json = await response.json()
-	return json.data[0].translations as PostTranslation[]
-}
+const { data } = await get<Post[]>('items/posts', {
+	filter: {
+		_and: [
+			{
+				translations: {
+					slug: {
+						_eq: slug,
+					},
+				},
+			},
+			{
+				translations: {
+					languages_code: {
+						_eq: locale,
+					},
+				},
+			},
+		],
+	},
+	fields: [
+		'translations.*',
+		'date_created',
+		'user_created.first_name',
+		'user_created.last_name',
+		'user_created.email',
+		'user_created.location',
+		'user_created.title',
+		'user_created.description',
+		'user_created.avatar',
+	],
+})
 
-const post = await getPost(slug)
+const { user_created: author, translations } = data[0]
+const postTranslation = translations.find((t) => t.languages_code === locale)!
 ---
 
 <MainLayout locale={locale} title="" description="">
 	<div>
-		<h1>Blog post: {locale} - {slug}</h1>
-		<div set:html={post[0].content} />
+		<h1 class="text-5xl mb-8">{postTranslation.name}</h1>
+		<Author author={author} />
+		<div set:html={postTranslation.content} />
 	</div>
 </MainLayout>
