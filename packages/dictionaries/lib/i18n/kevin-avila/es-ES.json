@@ -1,9 +1,9 @@
 {
-  "navbar": {
-    "description": "Arquitecto de Software + Escritor",
-    "pictureAlt": "Kevin Avila - Arquitecto de Software + Escritor"
-  },
-  "index": {
-    "header": "Hola!"
-  }
+	"navbar": {
+		"description": "Arquitecto de Software + Escritor",
+		"pictureAlt": "Kevin Avila - Arquitecto de Software + Escritor"
+	},
+	"index": {
+		"header": "Hola!"
+	}
 }

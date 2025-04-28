@@ -5,12 +5,12 @@ import { defineConfig } from 'vite'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  build: {
-    lib: {
-      entry: resolve(__dirname, 'lib/main.js'),
-      name: 'dictionaries',
-      // the proper extensions will be added
-      fileName: 'dictionaries',
-    }
-  },
+	build: {
+		lib: {
+			entry: resolve(__dirname, 'lib/main.js'),
+			name: 'dictionaries',
+			// the proper extensions will be added
+			fileName: 'dictionaries',
+		},
+	},
 })
