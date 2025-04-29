@@ -3,3 +3,11 @@
 @theme {
 	--color-primary: #f2511b;
 }
+
+#post h2 {
+	@apply text-3xl my-6;
+}
+
+#post h3 {
+	@apply text-2xl my-5;
+}

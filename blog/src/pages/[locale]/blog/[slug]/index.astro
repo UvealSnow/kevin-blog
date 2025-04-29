@@ -1,6 +1,7 @@
 ---
 import MainLayout from '@components/layouts/MainLayout.astro'
 import Author from '@components/author.astro'
+import SyntaxHighlighter from '@components/SyntaxHighlighter.astro'
 import { get } from '@src/cms'
 import type { PostAuthor, PostTranslation } from '@src/types'
 
@@ -81,11 +82,15 @@ const createdAt = new Date(date_created).toLocaleString('en-GB', {
 })
 ---
 
-<MainLayout locale={locale} title="" description="">
-	<div>
-		<h1 class="text-5xl">{postTranslation.name}</h1>
-		<p class="text-xs mt-2 mb-8">First published: {createdAt}</p>
-		<Author author={author} />
-		<div set:html={postTranslation.content} />
-	</div>
+<MainLayout locale={locale} title={postTranslation.name} description="">
+	<slot slot="head">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+	</slot>
+	
+	
+	<h1 class="text-5xl leading-15">{postTranslation.name}</h1>
+	<p class="text-xs mt-2 mb-8">First published: {createdAt}</p>
+	<Author author={author} />
+	<div id="post" set:html={postTranslation.content} />
+	<SyntaxHighlighter languages={['dockerfile', 'typescript']} />
 </MainLayout>

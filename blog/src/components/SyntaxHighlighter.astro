@@ -1,0 +1,46 @@
+---
+interface Props {
+  languages: string | string[]
+}
+
+const { languages } = Astro.props
+---
+<syntax-highlighter data-languages={languages}></syntax-highlighter>
+<script>
+  declare const hljs: any
+
+  class SyntaxHighlighter extends HTMLElement {
+    connectedCallback() {
+      const [head] = document.getElementsByTagName('head')
+      const hljsScript = document.createElement('script')
+      hljsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
+      hljsScript.type = 'text/javascript'
+      head.append(hljsScript)
+
+      hljsScript.addEventListener('load', async () => {
+        // Load additional languages
+        let languages: string[] = this.dataset.languages!.split(',')
+        const langPromises: Promise<boolean>[] = []
+        for (const lang of languages) {
+          const langEl = document.createElement('script')
+          langEl.src = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/${lang}.min.js`
+          langEl.type = 'text/javascript'
+          langPromises.push(new Promise((resolve, reject) => {
+            try {
+              head.append(langEl)
+              langEl.addEventListener('load', () => {
+                resolve(true)
+              })
+            } catch (error) {
+              reject(false)
+            }
+          }))
+        }
+        await Promise.all(langPromises)
+        hljs.highlightAll()
+      })
+    }
+  }
+
+  customElements.define('syntax-highlighter', SyntaxHighlighter)
+</script>

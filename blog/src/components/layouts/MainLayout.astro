@@ -19,10 +19,14 @@ const { locale, title, description } = Astro.props
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
+		<slot name="head" />
 		<title>{title}</title>
 	</head>
 	<body>
-		<main id="main-layout" class="flex flex-col md:flex-row">
+		<main
+			id="main-layout"
+			class="flex flex-col md:flex-row"
+		>
 			<div class="bg-primary text-white
 					flex flex-row justify-end
 					px-8 py-4 shadow
@@ -35,8 +39,10 @@ const { locale, title, description } = Astro.props
 
 			<Navbar title={t('navbar.title')} description={t('navbar.description')} />
 
-			<div class="mx-8 my-12 max-w-3xl">
-				<slot />
+			<div class="w-full max-h-screen overflow-y-scroll">
+				<div class="mx-8 my-12 max-w-3xl">
+					<slot />
+				</div>
 			</div>
 		</main>
 		<script>
