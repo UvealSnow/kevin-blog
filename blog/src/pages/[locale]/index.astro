@@ -12,6 +12,6 @@ const { t } = Astro.locals
 const { locale } = Astro.params
 ---
 
-<MainLayout title="Index" description="Index desc" locale={locale}>
+<MainLayout title={t('index.title')} description={t('index.description')} locale={locale}>
 	<h1 class="font-bold text-5xl">{t('index.header')}</h1>
 </MainLayout>

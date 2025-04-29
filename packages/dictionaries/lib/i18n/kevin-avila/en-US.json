@@ -5,6 +5,20 @@
 		"pictureAlt": "Kevin Avila - Software Architect + Writer"
 	},
 	"index": {
+		"title": "",
+		"description": "",
 		"header": "Hello there!"
+	},
+	"layout": {
+		"title": "Kevin Avila"
+	},
+	"blog": {
+		"title": "",
+		"description": "",
+		"header": ""
+	},
+	"pages": {
+		"lastUpdated": "Last updated at:",
+		"publishedAt": "First published:"
 	}
 }

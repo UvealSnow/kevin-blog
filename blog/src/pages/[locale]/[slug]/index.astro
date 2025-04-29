@@ -1,40 +1,62 @@
 ---
 import MainLayout from '@components/layouts/MainLayout.astro'
-import type { GetStaticPaths } from 'astro'
+import { get } from '@src/cms'
+import type { Translation, PageTranslation } from '@src/types'
+import { formatDate } from '@src/utils'
 
-interface PageTranslation {
-	id: number
-	pages_id: string
-	languages_code: string
-	name: string
-	slug: string
-	description: string
-	thumbnail: string
-}
+const { locale, slug } = Astro.params
+const { t } = Astro.locals
 
-interface PageResponse {
-	id: string
+interface Page {
+	date_updated: string
 	translations: PageTranslation[]
 }
 
-export const getStaticPaths = (async () => {
-	const availableLanguages = ['en-US', 'es-ES']
-	const response = await fetch(
-		'http://localhost:8055/items/pages?filter[status]=published&fields=translations.*,id',
-	)
-	const json = await response.json()
-	const data = json.data as PageResponse[]
+export async function getStaticPaths() {
+	const { data } = await get<Translation[]>('items/pages', {
+		filter: {
+			status: {
+				_eq: 'published'
+			},
+		},
+		fields: [
+			'translations.slug',
+			'translations.languages_code'
+		]
+	})
+	
+	return data.flatMap((entry) => entry.translations.map((translation) => {
+		const { languages_code: locale, slug } = translation
+		return {
+			params: { locale, slug },
+		}
+	}))
+}
 
-	return data.flatMap((entry) =>
-		entry.translations
-			.filter((t) => availableLanguages.includes(t.languages_code))
-			.map((t) => ({ params: { locale: t.languages_code, slug: t.slug } })),
-	)
-}) satisfies GetStaticPaths
+const { data } = await get<Page[]>('items/pages', {
+	filter: {
+		translations: {
+			slug: {
+				_eq: slug,
+			}
+		}
+	},
+	fields: [
+		'date_updated',
+		'translations.*'
+	]
+})
 
-const { locale, slug } = Astro.params
+const { translations, date_updated } = data[0]
+const pageTranslation = translations.find((t) => t.languages_code === locale)!
+const lastUpdated = formatDate(date_updated)
 ---
 
-<MainLayout locale={locale} title={`i18n ${slug} title`} description="i18n description">
-	<h1>{slug}@{locale}</h1>
+<MainLayout locale={locale} title={pageTranslation.name} description={pageTranslation.description}>
+	<h1 class="text-5xl leading-15">{pageTranslation.name}</h1>
+	<p class="text-xs mt-2 mb-8">{t('pages.lastUpdated')}: {lastUpdated}</p>
+
+	<pre>
+		{JSON.stringify(pageTranslation, null, 2)}
+	</pre>
 </MainLayout>

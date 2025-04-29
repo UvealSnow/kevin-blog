@@ -4,6 +4,17 @@
 		"pictureAlt": "Kevin Avila - Arquitecto de Software + Escritor"
 	},
 	"index": {
+		"title": "",
+		"description": "",
 		"header": "Hola!"
+	},
+	"blog": {
+		"title": "",
+		"description": "",
+		"header": "Últimas publicaciones"
+	},
+	"pages": {
+		"lastUpdated": "Última actualización:",
+		"publishedAt": "Publicado por primera vez en:"
 	}
 }

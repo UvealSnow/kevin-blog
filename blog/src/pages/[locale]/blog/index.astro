@@ -58,7 +58,7 @@ const { data: posts } = await get<Post[]>('items/posts', {
 })
 ---
 
-<MainLayout locale={locale} title={t('blog.header')} description={t('blog.description')}>
+<MainLayout locale={locale} title={t('blog.title')} description={t('blog.description')}>
 	<h1 class="text-5xl mb-8">{t('blog.header')}</h1>
 
 	<PostList posts={posts} />

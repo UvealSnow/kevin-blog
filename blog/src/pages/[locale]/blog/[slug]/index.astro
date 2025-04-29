@@ -3,7 +3,8 @@ import MainLayout from '@components/layouts/MainLayout.astro'
 import Author from '@components/author.astro'
 import SyntaxHighlighter from '@components/SyntaxHighlighter.astro'
 import { get } from '@src/cms'
-import type { PostAuthor, PostTranslation } from '@src/types'
+import type { PostAuthor, PostTranslation, Translation } from '@src/types'
+import { formatDate } from '@src/utils'
 
 const { locale, slug } = Astro.params
 
@@ -11,13 +12,6 @@ interface Post {
 	date_created: string
 	translations: PostTranslation[]
 	user_created: PostAuthor
-}
-
-interface Translation {
-	translations: {
-		slug: string
-		languages_code: string
-	}[]
 }
 
 export async function getStaticPaths() {
@@ -72,21 +66,13 @@ const { data } = await get<Post[]>('items/posts', {
 
 const { user_created: author, translations, date_created } = data[0]
 const postTranslation = translations.find((t) => t.languages_code === locale)!
-const createdAt = new Date(date_created).toLocaleString('en-GB', {
-	day: '2-digit',
-	month: '2-digit',
-	year: 'numeric',
-	hour: '2-digit',
-	minute: '2-digit',
-	hour12: true,
-})
+const createdAt = formatDate(date_created)
 ---
 
 <MainLayout locale={locale} title={postTranslation.name} description="">
 	<slot slot="head">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
 	</slot>
-	
 	
 	<h1 class="text-5xl leading-15">{postTranslation.name}</h1>
 	<p class="text-xs mt-2 mb-8">First published: {createdAt}</p>
