@@ -5,12 +5,22 @@ import i18n from '@kevhah/i18n'
 import { getDictionary } from '@kevhah/dictionaries'
 
 const dictionary = getDictionary('kevin-avila')
+const availableLocales = (process.env.UI_LOCALES ?? 'en-US').split(',')
+const defaultLocale = process.env.UI_DEFAULT_LOCALE ?? 'en-US'
+
+console.log(availableLocales, defaultLocale)
 
 // https://astro.build/config
 export default defineConfig({
+	redirects: {
+		'/': {
+			status: 302,
+			destination: `/${defaultLocale}`
+		},
+	},
 	i18n: {
-		locales: ['en-US', 'es-ES'],
-		defaultLocale: 'en-US',
+		locales: availableLocales,
+		defaultLocale,
 		routing: 'manual',
 	},
 	vite: {
@@ -27,8 +37,8 @@ export default defineConfig({
 	integrations: [
 		i18n({
 			config: {
-				availableLocales: ['en-US', 'es-ES'],
-				defaultLocale: 'en-US',
+				availableLocales,
+				defaultLocale,
 				// @ts-ignore
 				dictionary,
 			},
