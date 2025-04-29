@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier -w \"**/*\" --ignore-unknown --cache",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"build-packages": "pnpm --filter \"./packages/**\" build"
 	},
 	"keywords": [
 		"blog",
