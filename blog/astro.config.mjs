@@ -8,8 +8,6 @@ const dictionary = getDictionary('kevin-avila')
 const availableLocales = (process.env.UI_LOCALES ?? 'en-US').split(',')
 const defaultLocale = process.env.UI_DEFAULT_LOCALE ?? 'en-US'
 
-console.log(availableLocales, defaultLocale)
-
 // https://astro.build/config
 export default defineConfig({
 	redirects: {
