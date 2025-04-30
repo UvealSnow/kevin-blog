@@ -4,13 +4,13 @@
 		"pictureAlt": "Kevin Avila - Arquitecto de Software + Escritor"
 	},
 	"index": {
-		"title": "",
-		"description": "",
+		"title": "Página principal",
+		"description": "Bienvenidos a mi blog personal dónde tocaré temas de desarrollo de software y escritura",
 		"header": "Hola!"
 	},
 	"blog": {
-		"title": "",
-		"description": "",
+		"title": "Blog de desarrollo",
+		"description": "Una colección de mi más recientes pensamientos y proyectos.",
 		"header": "Últimas publicaciones"
 	},
 	"pages": {
