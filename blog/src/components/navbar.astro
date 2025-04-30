@@ -15,6 +15,7 @@ const { title, description, pagesLinks } = Astro.props
 const { t } = Astro.locals
 const { locale } = Astro.params
 const links = [
+	{ locale, slug: '', label: t('index.header') },
 	{ locale, slug: 'blog', label: t('blog.header') },
 	...pagesLinks.map(({ languages_code: locale, slug, name: label }) => ({ locale, slug, label })),
 ]

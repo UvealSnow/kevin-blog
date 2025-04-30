@@ -25,7 +25,7 @@ const { data: navbarData } = await get<NavbarLinkInterface[]>('items/pages', {
 })
 
 const navbar = navbarData.flatMap(
-	(entry) => entry.translations.find((t) => (t.languages_code = locale))!,
+	(entry) => entry.translations.find((t) => (t.languages_code === locale))!,
 )
 ---
 
