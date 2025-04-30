@@ -27,19 +27,18 @@ export async function getStaticPaths() {
 		fields: ['translations.languages_code'],
 	})
 
-	const locales = Array.from(new Set(data.flatMap((entry) =>
-		entry.translations.flatMap(({ languages_code: locale }) => locale),
-	))).map(l => ({ params: { locale: l } }))
+	const locales = Array.from(
+		new Set(
+			data.flatMap((entry) => entry.translations.flatMap(({ languages_code: locale }) => locale)),
+		),
+	).map((l) => ({ params: { locale: l } }))
 
 	return locales
 }
 
 const { data: posts } = await get<Post[]>('items/posts', {
 	filter: {
-		_and: [
-			{ status: { _eq: 'published' } },
-			{ translations: { languages_code: { _eq: locale } } }
-		],
+		_and: [{ status: { _eq: 'published' } }, { translations: { languages_code: { _eq: locale } } }],
 	},
 	fields: [
 		'translations.slug',
@@ -54,7 +53,7 @@ const { data: posts } = await get<Post[]>('items/posts', {
 		'user_created.title',
 		'user_created.description',
 		'user_created.avatar',
-	]
+	],
 })
 ---
 

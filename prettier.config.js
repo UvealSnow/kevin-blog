@@ -9,7 +9,7 @@ export default {
 	plugins: ['prettier-plugin-astro'],
 	overrides: [
 		{
-			files: ['.*', '*.md', '*.toml', '*.yml'],
+			files: ['.*', '*.md', '*.toml', '*.yml', '!pnpm-lock.yaml'],
 			options: {
 				useTabs: false,
 			},

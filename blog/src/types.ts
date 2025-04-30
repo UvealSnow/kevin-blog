@@ -1,9 +1,9 @@
 export interface PageTranslation {
-	languages_code: string;
-	name: string;
-	slug: string;
-	description: string;
-	thumbnail: string;
+	languages_code: string
+	name: string
+	slug: string
+	description: string
+	thumbnail: string
 }
 
 export interface PostTranslation {
@@ -31,6 +31,14 @@ export interface PostInterface {
 	date_created: string
 	translations: PostTranslation[]
 	user_created: PostAuthor
+}
+
+export interface NavbarLinkInterface {
+	translations: {
+		name: string
+		slug: string
+		languages_code: string
+	}[]
 }
 
 export interface Translation {

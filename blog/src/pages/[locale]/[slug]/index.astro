@@ -16,21 +16,20 @@ export async function getStaticPaths() {
 	const { data } = await get<Translation[]>('items/pages', {
 		filter: {
 			status: {
-				_eq: 'published'
+				_eq: 'published',
 			},
 		},
-		fields: [
-			'translations.slug',
-			'translations.languages_code'
-		]
+		fields: ['translations.slug', 'translations.languages_code'],
 	})
-	
-	return data.flatMap((entry) => entry.translations.map((translation) => {
-		const { languages_code: locale, slug } = translation
-		return {
-			params: { locale, slug },
-		}
-	}))
+
+	return data.flatMap((entry) =>
+		entry.translations.map((translation) => {
+			const { languages_code: locale, slug } = translation
+			return {
+				params: { locale, slug },
+			}
+		}),
+	)
 }
 
 const { data } = await get<Page[]>('items/pages', {
@@ -38,13 +37,10 @@ const { data } = await get<Page[]>('items/pages', {
 		translations: {
 			slug: {
 				_eq: slug,
-			}
-		}
+			},
+		},
 	},
-	fields: [
-		'date_updated',
-		'translations.*'
-	]
+	fields: ['date_updated', 'translations.*'],
 })
 
 const { translations, date_updated } = data[0]

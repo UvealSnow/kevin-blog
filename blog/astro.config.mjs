@@ -13,7 +13,7 @@ export default defineConfig({
 	redirects: {
 		'/': {
 			status: 302,
-			destination: `/${defaultLocale}`
+			destination: `/${defaultLocale}`,
 		},
 	},
 	i18n: {

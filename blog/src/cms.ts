@@ -26,7 +26,7 @@ const get = async <T>(path: string, query: NestedRecord): Promise<{ data: T }> =
 		const raw = await fetch(targetURL)
 		return raw.json()
 	} catch (error) {
-    console.error(error)
+		console.error(error)
 		return Promise.reject(error)
 	}
 }

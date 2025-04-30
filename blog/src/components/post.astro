@@ -29,7 +29,11 @@ const postUrl = getPostURL(locale!, postTranslation.slug)
 
 		<Author author={author} />
 
-		{postTranslation.thumbnail && <img class="rounded-lg w-96" src={postTranslation.thumbnail} alt={postTranslation.name} />}
+		{
+			postTranslation.thumbnail && (
+				<img class="rounded-lg w-96" src={postTranslation.thumbnail} alt={postTranslation.name} />
+			)
+		}
 
 		<p class="max-w-2xl mt-4">{postTranslation.description}</p>
 	</div>
