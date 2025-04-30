@@ -1,16 +1,22 @@
 ---
 import { Image } from 'astro:assets'
 
-const { title, description } = Astro.props
-const { locale } = Astro.params
+interface Props {
+	title: string
+	description: string
+	pagesLinks: {
+		languages_code: string
+		name: string
+		slug: string
+	}[]
+}
 
-const pictureAlt = 'Carolina Rivera Luque - Placeholder'
+const { title, description, pagesLinks } = Astro.props
+const { t } = Astro.locals
+const { locale } = Astro.params
 const links = [
-	{ href: '/', label: 'Home' },
-	{ href: '/about', label: 'About' },
-	{ href: '/experience', label: 'Experience' },
-	{ href: '/blog', label: 'Blog' },
-	{ href: '/contact', label: 'Contact me' },
+	{ locale, slug: 'blog', label: t('blog.header') },
+	...pagesLinks.map(({ languages_code: locale, slug, name: label }) => ({ locale, slug, label })),
 ]
 ---
 
@@ -29,7 +35,7 @@ const links = [
 		class="rounded-full"
 		width={96}
 		height={96}
-		alt={pictureAlt}
+		alt={description}
 	/>
 
 	<h5 class="text-xl text-white pt-8">{title}</h5>
@@ -39,7 +45,7 @@ const links = [
 		{
 			links.map((link) => (
 				<li class="m-0">
-					<a href={`/${locale}${link.href}`}>{link.label}</a>
+					<a href={`/${link.locale}/${link.slug}`}>{link.label}</a>
 				</li>
 			))
 		}

@@ -3,6 +3,8 @@ import '@src/styles/global.css'
 import Navbar from '@components/navbar.astro'
 import Cross from '@src/icons/close.svg'
 import Menu from '@src/icons/menu.svg'
+import { get } from '@src/cms'
+import type { NavbarLinkInterface } from '@src/types'
 
 interface Props {
 	locale: string
@@ -12,6 +14,19 @@ interface Props {
 
 const { t } = Astro.locals
 const { locale, title, description } = Astro.props
+
+const { data: navbarData } = await get<NavbarLinkInterface[]>('items/pages', {
+	filter: {
+		navbar: {
+			_eq: 'true',
+		},
+	},
+	fields: ['translations.languages_code', 'translations.name', 'translations.slug'],
+})
+
+const navbar = navbarData.flatMap(
+	(entry) => entry.translations.find((t) => (t.languages_code = locale))!,
+)
 ---
 
 <html lang={locale}>
@@ -23,10 +38,7 @@ const { locale, title, description } = Astro.props
 		<title>{t('layout.title')} | {title}</title>
 	</head>
 	<body>
-		<main
-			id="main-layout"
-			class="flex flex-col md:flex-row"
-		>
+		<main id="main-layout" class="flex flex-col md:flex-row">
 			<div class="bg-primary text-white
 					flex flex-row justify-end
 					px-8 py-4 shadow
@@ -37,7 +49,7 @@ const { locale, title, description } = Astro.props
 				</button>
 			</div>
 
-			<Navbar title={t('navbar.title')} description={t('navbar.description')} />
+			<Navbar title={t('navbar.title')} description={t('navbar.description')} pagesLinks={navbar} />
 
 			<div class="w-full max-h-screen overflow-y-scroll">
 				<div class="mx-8 my-12 max-w-3xl">
